@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+          <style media="screen">
+          .navbar-login
+{
+width: 305px;
+padding: 10px;
+padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+padding: 10px;
+padding-bottom: 0px;
+padding-top: 0px;
+}
+
+.icon-size
+{
+font-size: 87px;
+}
+          </style>
+        {% endblock %}
+        <link rel="stylesheet" href="{{ asset('styles/navbar.css') }}">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" charset="utf-8"></script>
+    </head>
+    <body>
+      <div class="container-fluid">
+    <!-- Second navbar for sign in -->
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-2">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Moustiques</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-2">
+{% if app.user != null %}
+          <ul class="nav navbar-nav navbar-right">
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                          <span class="glyphicon glyphicon-user"></span> 
+                          <strong>{{app.user.name}}</strong>
+                          <span class="glyphicon glyphicon-chevron-down"></span>
+                      </a>
+                      <ul class="dropdown-menu">
+                          <li>
+                              <div class="navbar-login">
+                                  <div class="row">
+                                      <div class="col-lg-4">
+                                          <p class="text-center">
+                                              <span class="glyphicon glyphicon-user icon-size"></span>
+                                          </p>
+                                      </div>
+                                      <div class="col-lg-8">
+                                          <p class="text-left"><strong>{{app.user.name}}</strong></p>
+                                          <p class="text-left small">{{app.user.email}}</p>
+                                          <p class="text-left">
+                                              <a href="/profil" class="btn btn-primary btn-block btn-sm">Profil</a>
+                                              <a href="/mes-moustiques" class="btn btn-primary btn-block btn-sm">Mes moustiques</a>
+                                          </p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </li>
+                          {% if is_granted('ROLE_ADMIN') %}
+                          <li>
+                              <div class="navbar-login navbar-login-session">
+                                  <div class="row">
+                                      <div class="col-lg-12">
+                                          <p>
+                                              <a href="/admin" class="btn btn-primary btn-block">Administration</a>
+                                          </p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </li>
+                          {% endif %}
+                          <li class="divider"></li>
+                          <li>
+                              <div class="navbar-login navbar-login-session">
+                                  <div class="row">
+                                      <div class="col-lg-12">
+                                          <p>
+                                              <a href="/logout" class="btn btn-danger btn-block">Déconnexion</a>
+                                          </p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
+              {% endif %}
+              {% if app.user == null %}
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="/login">Connexion</a></li>
+                <li><a href="/registering">Inscription</a></li>
+              </ul>
+              {% endif %}
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+    </nav><!-- /.navbar -->
+</div><!-- /.container-fluid -->
+{% block javascripts %}
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" charset="utf-8"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" charset="utf-8"></script>
+{% endblock %}
+        {% block body %}{% endblock %}
+
+    </body>
+</html>

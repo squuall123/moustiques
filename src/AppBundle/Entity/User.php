@@ -1,0 +1,289 @@
+<?php
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * @ORM\Entity
+ * @UniqueEntity(fields="email", message="This email address is already in use")
+ */
+class User implements UserInterface
+{
+    /**
+     * @ORM\Id;
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    protected $email;
+
+    /**
+     * @ORM\Column(type="string", length=40)
+     */
+    protected $name;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    protected $role;
+
+    /**
+     * @Assert\Length(max=4096)
+     */
+    protected $plainPassword;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    protected $password;
+
+    /**
+     * @ORM\Column(type="integer", length=2)
+     */
+    protected $age;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    protected $famille;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    protected $race;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    protected $nourriture;
+
+    /**
+    * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User")
+    * @ORM\JoinColumn(nullable=true)
+    */
+    private $moustiques;
+
+    public function eraseCredentials()
+    {
+        return null;
+    }
+
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function setRole($role = null)
+    {
+        $this->role = $role;
+    }
+
+    public function getRoles()
+    {
+        return [$this->getRole()];
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * Set age
+     *
+     * @param integer $age
+     *
+     * @return User
+     */
+    public function setAge($age)
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    /**
+     * Get age
+     *
+     * @return integer
+     */
+    public function getAge()
+    {
+        return $this->age;
+    }
+
+    /**
+     * Set famille
+     *
+     * @param string $famille
+     *
+     * @return User
+     */
+    public function setFamille($famille)
+    {
+        $this->famille = $famille;
+
+        return $this;
+    }
+
+    /**
+     * Get famille
+     *
+     * @return string
+     */
+    public function getFamille()
+    {
+        return $this->famille;
+    }
+
+    /**
+     * Set race
+     *
+     * @param string $race
+     *
+     * @return User
+     */
+    public function setRace($race)
+    {
+        $this->race = $race;
+
+        return $this;
+    }
+
+    /**
+     * Get race
+     *
+     * @return string
+     */
+    public function getRace()
+    {
+        return $this->race;
+    }
+
+    /**
+     * Set nourriture
+     *
+     * @param string $nourriture
+     *
+     * @return User
+     */
+    public function setNourriture($nourriture)
+    {
+        $this->nourriture = $nourriture;
+
+        return $this;
+    }
+
+    /**
+     * Get nourriture
+     *
+     * @return string
+     */
+    public function getNourriture()
+    {
+        return $this->nourriture;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->moustiques = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add moustique
+     *
+     * @param \AppBundle\Entity\User $moustique
+     *
+     * @return User
+     */
+    public function addMoustique(\AppBundle\Entity\User $moustique)
+    {
+        $this->moustiques[] = $moustique;
+
+        return $this;
+    }
+
+    /**
+     * Remove moustique
+     *
+     * @param \AppBundle\Entity\User $moustique
+     */
+    public function removeMoustique(\AppBundle\Entity\User $moustique)
+    {
+        $this->moustiques->removeElement($moustique);
+    }
+
+    /**
+     * Get moustiques
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMoustiques()
+    {
+        return $this->moustiques;
+    }
+
+    public function __toString()
+   {
+      return strval( $this->getName() );
+   }
+}

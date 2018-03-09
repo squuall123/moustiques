@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ asset('styles/profil.css') }}">
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-4">
+            <div class="text-center card-box">
+                <div class="member-card">
+                    <div class="thumb-xl member-thumb m-b-10 center-block">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-thumbnail" alt="profile-image">
+                    </div>
+
+                    <div class="">
+                        <h4 class="m-b-5">{{app.user.name}}</h4>
+                        <p class="text-muted">@{{app.user.name}}</p>
+                    </div>
+
+
+                    <div class="text-left m-t-40">
+                        <p class="text-muted font-13"><strong>Full Name :</strong> <span class="m-l-15">{{app.user.name}}</span></p>
+
+                        <p class="text-muted font-13"><strong>Email :</strong> <span class="m-l-15">{{app.user.email}}</span></p>
+
+                    </div>
+
+                </div>
+            </div> <!-- end card-box -->
+        </div> <!-- end col -->
+
+
+        <div class="col-md-8 col-lg-9">
+            <div class="">
+                <div class="">
+                    <ul class="nav nav-tabs navtab-custom">
+
+
+                        <li class="active">
+                            <a href="#settings" data-toggle="tab" aria-expanded="false">
+                                <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                                <span class="hidden-xs">Paramètres</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+
+                        <div class="tab-pane active" id="settings">
+
+
+                              {{ form_start(edit_form) }}
+
+                                <div class="form-group">
+                                    <label for="name">Nom</label>
+                                <!--    <input type="text" value="John Doe" id="FullName" class="form-control"> -->
+                                    {{ form_widget(edit_form.name, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    {{ form_widget(edit_form.email, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="Password">Mot de passe</label>
+                                    {{ form_widget(edit_form.plainPassword.first, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="RePassword">Re-Password</label>
+                                    {{ form_widget(edit_form.plainPassword.second, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="RePassword">Age</label>
+                                    {{ form_widget(edit_form.age, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="RePassword">Famille</label>
+                                    {{ form_widget(edit_form.famille, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="RePassword">Race</label>
+                                    {{ form_widget(edit_form.race, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="RePassword">Nourriture</label>
+                                    {{ form_widget(edit_form.nourriture, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <button class="btn btn-primary waves-effect waves-light w-md" type="submit">Enregistrer</button>
+                            {{ form_end(edit_form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+</div>
+
+{% endblock %}

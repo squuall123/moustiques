@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+<link rel="stylesheet" href="{{ asset('styles/list.css') }}">
+<div class="container">
+  {% if moustiques is empty %}
+  <div class="container">
+    <p>
+      <h3>Vous n'avez pas ajouté des moustiques !</h3>
+      <h3>Merdi d'ajouter quelques unes !</h3>
+    </p>
+  </div>
+  {% else %}
+  <div class="col-md-10 col-md-offset-1">
+      <div class="panel panel-success">
+          <div class="panel-heading">Ma liste de moustiques !</div>
+      </div>
+    </div>
+<div class="row">
+  {% for moustique in moustiques %}
+  <div class="col-md-3">
+        <div class="panel widget">
+          <div class="widget-header bg-primary"></div>
+          <div class="widget-body text-center">
+            <img alt="Profile Picture" class="widget-img img-circle img-border-light" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+            <h4 class="mar-no">{{moustique.name}}</h4>
+            <p class="text-muted mar-btm">{{moustique.email}}</p>
+
+            <div class="pad-ver">
+              <a class="btn btn-primary" href="/view/{{moustique.id}}">Voir</a>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endfor %}
+</div>
+  {% endif %}
+
+</div>
+{% endblock %}
