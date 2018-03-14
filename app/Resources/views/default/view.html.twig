@@ -20,8 +20,7 @@
                         {% for temp in app.user.moustiques %}
                           {% if moustique.id == temp.id %}
                           <a href="/remove/{{moustique.id}}" class="btn btn-danger"> Supprimer Moustique</a>
-                          {% else %}
-                          <a href="/add/{{moustique.id}}" class="btn btn-success"> Ajouter Moustique</a>
+                          
                           {% endif %}
 
                         {% endfor %}
