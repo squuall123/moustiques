@@ -1,0 +1,11 @@
+<h1>View Moustique</h1>
+<div ng-model="user">
+  <h1>Name :</h1>
+  <h3>{{user.name}}</h3>
+<div ng-if="check(user.id) == false">
+  <button type="button" name="add" ng-click="add(user.id)" class="btn btn-primary">Add</button>
+</div>
+<div ng-if="check(user.id) == true">
+  <button type="button" name="remove" ng-click="remove(user.id)" class="btn btn-primary">Remove</button>
+</div>
+</div>

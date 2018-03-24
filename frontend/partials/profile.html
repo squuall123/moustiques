@@ -1,0 +1,44 @@
+<h1>Profile</h1>
+
+<div ng-model="profile">
+
+  <form ng-submit="updateProfile(profile)" method="post">
+
+    <div class="form-group">
+      <label for="name">Name : </label>
+      <input type="text" name="name" ng-model="profile.name">
+    </div>
+
+    <div class="form-group">
+      <label for="name">Email : </label>
+      <input type="text" name="email" ng-model="profile.email">
+    </div>
+
+    <div class="form-group">
+      <label for="name">Password : </label>
+      <input type="password" name="password" ng-model="profile.password">
+    </div>
+
+    <div class="form-group">
+      <label for="name">Age : </label>
+      <input type="text" name="age" ng-model="profile.age">
+    </div>
+
+    <div class="form-group">
+      <label for="name">Race : </label>
+      <input type="text" name="race" ng-model="profile.race">
+    </div>
+
+    <div class="form-group">
+      <label for="name">Famille : </label>
+      <input type="text" name="famille" ng-model="profile.famille">
+    </div>
+
+    <div class="form-group">
+      <label for="name">Nourriture : </label>
+      <input type="text" name="name" ng-model="profile.nourriture">
+    </div>
+
+    <button class="btn btn-primary" type="submit" name="update" >Update</button>
+  </form>
+</div>

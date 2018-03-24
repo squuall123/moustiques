@@ -1,0 +1,16 @@
+<h1>App</h1>
+<div ng-controller="AppCtrl">
+<button type="button" name="profile" class="btn btn-primary" ng-click="viewProfile()">Profile</button>
+<button type="button" name="liste" class="btn btn-primary" ng-click="viewListe()">Mes moustiques</button>
+<input type="text" class="search" ng-model="searchString" placeholder="Enter your search terms" />
+<table  border="1">
+    <tr ng-repeat="x in users | searchFor:searchString">
+        <td>{{x.name}}</td>
+        <td>{{x.email}}</td>
+        <td>{{x.id}}</td>
+        <td>
+            <button type="button" name="view" ng-click="getUser(x.id)" class="btn btn-primary">View</button>
+        </td>
+    </tr>
+</table>
+</div>

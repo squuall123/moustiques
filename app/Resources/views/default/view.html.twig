@@ -14,14 +14,20 @@
                     <div class="">
                         <h4 class="m-b-5">{{moustique.name}}</h4>
                         <p class="text-muted">@{{moustique.name}}</p>
-                        {% if app.user.moustiques is empty %}
+                        {% if app.user.moustiques is empty%}
                           <a href="/add/{{moustique.id}}" class="btn btn-success"> Ajouter Moustique</a>
                         {% else %}
                         {% for temp in app.user.moustiques %}
                           {% if moustique.id == temp.id %}
                           <a href="/remove/{{moustique.id}}" class="btn btn-danger"> Supprimer Moustique</a>
-                          
+
                           {% endif %}
+
+                          {% if moustique.id != temp.id %}
+                          <a href="/add/{{moustique.id}}" class="btn btn-success"> Ajouter Moustique</a>
+
+                          {% endif %}
+
 
                         {% endfor %}
                         {% endif %}
