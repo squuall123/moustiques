@@ -3,6 +3,8 @@ starter-kit
 
 A Symfony project created on March 9, 2018, 6:31 pm.
 
+REST API using Symfony 3.3
+FrontEnd using AngularJS 1.6
 
 # How to get it running
 
@@ -12,9 +14,5 @@ A Symfony project created on March 9, 2018, 6:31 pm.
 4) bin/console doctrine:database:created
 5) bin/console doctrine:schema:update --force
 6) bin/console server:start
-7) goto localhost:8000
-8) enjoy
-
-# Screenshots
-
-Screenshots are available in screenshots directory.
+7) goto frontend folder and run live-server
+8) enjoy 
