@@ -1,11 +1,88 @@
-<h1>View Moustique</h1>
-<div ng-model="user">
-  <h1>Name :</h1>
-  <h3>{{user.name}}</h3>
-<div ng-if="check(user.id) == false">
-  <button type="button" name="add" ng-click="add(user.id)" class="btn btn-primary">Add</button>
-</div>
-<div ng-if="check(user.id) == true">
-  <button type="button" name="remove" ng-click="remove(user.id)" class="btn btn-primary">Remove</button>
-</div>
+
+
+<link rel="stylesheet" href="styles/profil.css">
+<div class="container" ng-model="user">
+  <div class="row">
+    <div class="col-lg-3 col-md-4">
+      <div class="text-center card-box">
+        <div class="member-card">
+          <div class="thumb-xl member-thumb m-b-10 center-block">
+            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-thumbnail" alt="profile-image">
+          </div>
+
+          <div class="">
+            <h4 class="m-b-5">{{user.name}}</h4>
+            <p class="text-muted">@{{user.name}}</p>
+            <div ng-if="check(user.id) == false">
+              <button type="button" name="add" ng-click="add(user.id)" class="btn btn-success">Add</button>
+            </div>
+            <div ng-if="check(user.id) == true">
+              <button type="button" name="remove" ng-click="remove(user.id)" class="btn btn-danger">Remove</button>
+            </div>
+          </div>
+
+
+          <div class="text-left m-t-40">
+            <p class="text-muted font-13"><strong>Full Name :</strong> <span class="m-l-15">{{user.name}}</span></p>
+            <p class="text-muted font-13"><strong>Email :</strong> <span class="m-l-15">{{user.email}}</span></p>
+          </div>
+
+        </div>
+      </div> <!-- end card-box -->
+    </div> <!-- end col -->
+
+
+    <div class="col-md-8 col-lg-9">
+      <div class="">
+        <div class="">
+          <ul class="nav nav-tabs navtab-custom">
+
+
+            <li class="active">
+              <a href="#settings" data-toggle="tab" aria-expanded="false">
+                <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                <span class="hidden-xs">Profil</span>
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content">
+
+            <div class="tab-pane active" id="settings">
+
+              <!-- User info -->
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">Informations</h4>
+                </div>
+                <div class="panel-body">
+                  <table class="table profile__table">
+                    <tbody>
+                      <tr>
+                        <th><strong>Age</strong></th>
+                        <td>{{user.age}}</td>
+                      </tr>
+                      <tr>
+                        <th><strong>Famille</strong></th>
+                        <td>{{user.famille}}</td>
+                      </tr>
+                      <tr>
+                        <th><strong>Race</strong></th>
+                        <td>{{user.race}}</td>
+                      </tr>
+                      <tr>
+                        <th><strong>Nourriture</strong></th>
+                        <td>{{user.nourriture}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- end col -->
+  </div>
+  <!-- end row -->
 </div>

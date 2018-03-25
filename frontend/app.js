@@ -37,6 +37,13 @@ var app = angular.module("myApp", ["ngRoute"])
     console.log("token not null");
     $location.path("/app");
   }
+
+  $scope.gotoRegister = function(){
+    $location.path("/register");
+  }
+  $scope.gotoLogin = function(){
+    $location.path("/");
+  }
   $scope.login = function(form){
     $http({
       "async": true,
@@ -62,6 +69,12 @@ var app = angular.module("myApp", ["ngRoute"])
 .controller("RegisterCtrl", function($scope, $http, $location, $rootScope){
   //console.log("$scope", $scope);
   $scope.sending = false;
+  $scope.gotoRegister = function(){
+    $location.path("/register");
+  }
+  $scope.gotoLogin = function(){
+    $location.path("/");
+  }
   $scope.register = function(form){
     $http({
       "async": true,
