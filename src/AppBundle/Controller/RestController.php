@@ -159,7 +159,8 @@ class RestController extends Controller
         $em->persist($user);
         $em->flush();
 
-        return new Response('Created User');
+
+        return new Response($user->getId());
     }
     else {
       //return new Response('not created user');
@@ -168,6 +169,7 @@ class RestController extends Controller
     //return new Response($data['test']);
 
   }
+
 
   /**
   * @Rest\View()

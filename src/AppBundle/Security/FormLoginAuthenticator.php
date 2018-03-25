@@ -76,7 +76,7 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
 
     protected function getLoginUrl()
     {
-        return $this->router->generate('login');
+        return $this->router->generate('loginDefault');
     }
 
     protected function getDefaultSuccessRedirectUrl()

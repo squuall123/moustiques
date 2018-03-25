@@ -2,6 +2,7 @@
 var user = null;
 var profile = null;
 var token = null;
+
 var app = angular.module("myApp", ["ngRoute"])
 .config(function($routeProvider) {
     $routeProvider
@@ -29,6 +30,10 @@ var app = angular.module("myApp", ["ngRoute"])
         templateUrl : "partials/view.html",
         controller: "ViewCtrl"
     })
+    .when("/new",{
+      templateUrl : "partials/new.html",
+      controller : "NewCtrl"
+    })
 })
 .controller("LoginCtrl", function($scope, $http, $location, $rootScope){
   //console.log("$scope", $scope);
@@ -36,15 +41,23 @@ var app = angular.module("myApp", ["ngRoute"])
   if (token !== null) {
     console.log("token not null");
     $location.path("/app");
+    //growl.success('You are now logged in.',{title: 'Success!'});
   }
 
-  $scope.gotoRegister = function(){
+  $rootScope.checkLogin = function(){
+    if (token === null || $rootScope.token === null) {
+      return false;
+    }else {
+      return true;
+    }
+  }
+  $rootScope.gotoRegister = function(){
     $location.path("/register");
   }
-  $scope.gotoLogin = function(){
+  $rootScope.gotoLogin = function(){
     $location.path("/");
   }
-  $scope.login = function(form){
+  $rootScope.login = function(form){
     $http({
       "async": true,
       "crossDomain": true,
@@ -69,12 +82,7 @@ var app = angular.module("myApp", ["ngRoute"])
 .controller("RegisterCtrl", function($scope, $http, $location, $rootScope){
   //console.log("$scope", $scope);
   $scope.sending = false;
-  $scope.gotoRegister = function(){
-    $location.path("/register");
-  }
-  $scope.gotoLogin = function(){
-    $location.path("/");
-  }
+
   $scope.register = function(form){
     $http({
       "async": true,
@@ -154,7 +162,7 @@ var app = angular.module("myApp", ["ngRoute"])
     $rootScope.array = finalArray;
     console.log("FinalArray filled with data", $rootScope.array);
   })
-  $scope.getUser = function(id){
+  $rootScope.getUser = function(id){
     $http({
       "async": true,
       "crossDomain": true,
@@ -171,15 +179,24 @@ var app = angular.module("myApp", ["ngRoute"])
     })
   }
 
-  $scope.viewProfile = function(){
+  $rootScope.viewProfile = function(){
       $scope.profile = profile;
       //console.log($scope.profile);
       $location.path("/profile");
   }
 
-  $scope.viewListe = function(){
+  $rootScope.viewListe = function(){
       //console.log($scope.profile);
       $location.path("/liste");
+  }
+
+  $rootScope.logout = function(){
+    $rootScope.token = null;
+    token = null;
+    $location.path("/");
+  }
+  $rootScope.gotoNew = function(){
+    $location.path("/new");
   }
 
 
@@ -207,7 +224,9 @@ var app = angular.module("myApp", ["ngRoute"])
     if ($rootScope.array.includes(user.id)) {
       //console.log("add impossible ==> remove");
       return true;
-    }else {
+    }else if (user.id === profile.id) {
+      console.log("same id");
+    } else {
       //console.log("add possible");
       return false;
     }
@@ -284,20 +303,49 @@ var app = angular.module("myApp", ["ngRoute"])
 })
 .controller("ListeCtrl", function($scope, $http, $location, $rootScope){
   $scope.liste = $rootScope.liste;
-  $scope.getUser = function(id){
+
+})
+.controller("NewCtrl", function($scope, $http, $location, $rootScope){
+  $scope.createUser = function(form){
     $http({
       "async": true,
       "crossDomain": true,
-      "url": "http://localhost:8000/api/user/"+id,
-      "method": "GET",
-      "headers": {
-        "Authorization": "Bearer "+$rootScope.token,
+      "url": "http://localhost:8000/api/register",
+      "method": "POST",
+      "headers": {'Content-Type' : 'application/json',
         "Cache-Control": "no-cache"
-      }
+      },
+      "data": {"user":{
+              "name":form.username,
+              "email":form.email,
+              "plainPassword":{
+                 "first":"azerty",
+                 "second":"azerty"
+                },
+                "age":form.age,
+                "famille":form.famille,
+                "race":form.race,
+                "nourriture":form.nourriture
+              }
+            }
     }).then(function(response){
-      //console.log(response.data);
-      user = response.data;
-      $location.path("/view");
+      console.log(response.data);
+      $http({
+        "async": true,
+        "crossDomain": true,
+        "url": "http://localhost:8000/api/add/"+response.data,
+        "method": "GET",
+        "headers": {
+          "Authorization": "Bearer "+$rootScope.token,
+          "Cache-Control": "no-cache"
+        }
+      }).then(function(response){
+        //console.log(response);
+        $location.path("/app");
+
+      })
+
+      //$location.path("/");
     })
   }
 })

@@ -18,6 +18,11 @@ body{
 .bg-primary {
   background-color: #5fa2dd;
 }
+
+.bg-create {
+  background-color: #32CD32;
+}
+
 .bg-success, .bg-success a {
   color: #fff;
 }

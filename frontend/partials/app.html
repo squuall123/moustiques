@@ -1,100 +1,62 @@
 <link rel="stylesheet" href="styles/list.css">
+<link rel="stylesheet" href="styles/navbar.css">
+<link rel="stylesheet" href="styles/search.css">
 
-<div class="container-fluid">
-    <!-- Second navbar for sign in -->
-    <nav class="navbar navbar-default">
-      <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-2">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/#!/">Moustiques</a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="navbar-collapse-2">
-          <ul class="nav navbar-nav navbar-right">
-                  <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                          <span class="glyphicon glyphicon-user"></span> 
-                          <strong>{{app.user.name}}</strong>
-                          <span class="glyphicon glyphicon-chevron-down"></span>
-                      </a>
-                      <ul class="dropdown-menu">
-                          <li>
-                              <div class="navbar-login">
-                                  <div class="row">
-                                      <div class="col-lg-4">
-                                          <p class="text-center">
-                                              <span class="glyphicon glyphicon-user icon-size"></span>
-                                          </p>
-                                      </div>
-                                      <div class="col-lg-8">
-                                          <p class="text-left"><strong>{{app.user.name}}</strong></p>
-                                          <p class="text-left small">{{app.user.email}}</p>
-                                          <p class="text-left">
-                                              <a href="/profil" class="btn btn-primary btn-block btn-sm">Profil</a>
-                                              <a href="/mes-moustiques" class="btn btn-primary btn-block btn-sm">Mes moustiques</a>
-                                          </p>
-                                      </div>
-                                  </div>
-                              </div>
-                          </li>
-                          <li class="divider"></li>
-                          <li>
-                              <div class="navbar-login navbar-login-session">
-                                  <div class="row">
-                                      <div class="col-lg-12">
-                                          <p>
-                                              <a href="/logout" class="btn btn-danger btn-block">Déconnexion</a>
-                                          </p>
-                                      </div>
-                                  </div>
-                              </div>
-                          </li>
-                      </ul>
-                  </li>
-              </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container -->
-    </nav><!-- /.navbar -->
-</div><!-- /.container-fluid -->
+<div growl></div>
 
-
-<h1>App</h1>
 <div class="container" ng-controller="AppCtrl">
-  <div class="container container-table">
-    <div class="row vertical-center-row">
-        <div class="text-center col-md-4 col-md-offset-4">
-          <input type="text" class="search" ng-model="searchString" placeholder="Enter your search terms" />
-        </div>
+    <div class="container">
+    	<div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div id="imaginary_container">
+                    <div class="input-group stylish-input-group">
+                        <input type="text" class="form-control" ng-model="searchString" placeholder="Search" >
+                        <span class="input-group-addon">
+                            <button type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+    	</div>
     </div>
 
-  </div>
-  <div class="container">
-    <button type="button" name="profile" class="btn btn-primary" ng-click="viewProfile()">Profile</button>
-    <button type="button" name="liste" class="btn btn-primary" ng-click="viewListe()">Mes moustiques</button>
+    <br>
 
-  </div>
 <div class="container">
-<div class="row">
-<div class="col-md-3" ng-repeat="x in users | searchFor:searchString">
-      <div class="panel widget">
-        <div class="widget-header bg-primary"></div>
-        <div class="widget-body text-center">
-          <img alt="Profile Picture" class="widget-img img-circle img-border-light" src="https://bootdey.com/img/Content/avatar/avatar1.png">
-          <h4 class="mar-no">{{x.name}}</h4>
-          <p class="text-muted mar-btm">{{x.email}}</p>
+  <div class="jumbotron">
+    <div class="row">
+    <div class="col-md-3" ng-repeat="x in users | searchFor:searchString">
+          <div class="panel widget">
+            <div class="widget-header bg-primary"></div>
+            <div class="widget-body text-center">
+              <img alt="Profile Picture" class="widget-img img-circle img-border-light" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+              <h4 class="mar-no">{{x.name}}</h4>
+              <p class="text-muted mar-btm">{{x.email}}</p>
 
-          <div class="pad-ver">
-            <button type="button" name="view" ng-click="getUser(x.id)" class="btn btn-primary">View</button>
+              <div class="pad-ver">
+                <button type="button" name="view" ng-click="getUser(x.id)" class="btn btn-primary">View</button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+        <!-- Add new user without registration -->
+        <div class="col-md-3">
+              <div class="panel widget">
+                <div class="widget-header bg-create"></div>
+                <div class="widget-body text-center">
+                  <img alt="Profile Picture" class="widget-img img-circle img-border-light" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                  <h4 class="mar-no">Create new Moustique</h4>
+
+
+                  <div class="pad-ver">
+                    <button type="button" name="view" ng-click="gotoNew()" class="btn btn-primary">Create</button>
+                  </div>
+                </div>
+              </div>
+            </div>
     </div>
-</div>
+  </div>
 </div>
 </div>
