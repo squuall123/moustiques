@@ -184,14 +184,16 @@ class RestController extends Controller
        $user = $em->getRepository('AppBundle:User')->findOneByName($username);
 
        if (!$user) {
-           throw $this->createNotFoundException();
+         return new Response( Response::HTTP_NOT_FOUND);
+           //throw $this->createNotFoundException();
        }
 
        $isValid = $this->get('security.password_encoder')
            ->isPasswordValid($user, $password);
 
        if (!$isValid) {
-           throw new BadCredentialsException();
+         return new Response(Response::HTTP_UNAUTHORIZED);
+           //throw new BadCredentialsException();
        }
 
        $token = $this->getToken($user);

@@ -5,6 +5,7 @@
     <title></title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/angular-ui-notification/dist/angular-ui-notification.min.css">
     <link rel="stylesheet" href="styles/navbar.css">
 
   </head>
@@ -111,12 +112,13 @@
           </nav><!-- /.navbar -->
       </div><!-- /.container-fluid -->
     </div>
-
+      <div growl></div>
     <ng-view></ng-view>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" charset="utf-8"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+    <script src="bower_components/angular-ui-notification/dist/angular-ui-notification.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="node_modules/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
   </body>

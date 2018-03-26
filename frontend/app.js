@@ -2,9 +2,22 @@
 var user = null;
 var profile = null;
 var token = null;
+var loginStatus = false;
 
-var app = angular.module("myApp", ["ngRoute"])
-.config(function($routeProvider) {
+var app = angular.module("myApp", ["ngRoute", 'ui-notification']);
+app.config(function(NotificationProvider){
+  NotificationProvider.setOptions({
+            delay: 5000,
+            startTop: 20,
+            startRight: 10,
+            verticalSpacing: 20,
+            horizontalSpacing: 20,
+            positionX: 'left',
+            positionY: 'bottom'
+        });
+});
+
+app.config(function($routeProvider) {
     $routeProvider
     .when("/", {
         templateUrl : "partials/login.html",
@@ -35,13 +48,14 @@ var app = angular.module("myApp", ["ngRoute"])
       controller : "NewCtrl"
     })
 })
-.controller("LoginCtrl", function($scope, $http, $location, $rootScope){
+.controller("LoginCtrl", function($scope, $http, $location, $rootScope, Notification){
   //console.log("$scope", $scope);
+
   $scope.sending = false;
   if (token !== null) {
     console.log("token not null");
     $location.path("/app");
-    //growl.success('You are now logged in.',{title: 'Success!'});
+
   }
 
   $rootScope.checkLogin = function(){
@@ -69,12 +83,18 @@ var app = angular.module("myApp", ["ngRoute"])
         "Cache-Control": "no-cache"
       }
     }).then(function(response){
-      $scope.sending = true;
-      //console.log("RES", response.data.token);
-      $rootScope.token = response.data.token;
-      token = response.data.token;
-      //console.log(token);
-      $location.path("/app");
+       if (response.data == "404") {
+        Notification.warning("User not found");
+      } else if (response.data === "401") {
+        //console.log("bad password");
+        Notification.warning("Bad password");
+      }else {
+        //console.log(response.data);
+        $scope.sending = true;
+        $rootScope.token = response.data.token;
+        token = response.data.token;
+        $location.path("/app");
+      }
     })
 
   }
@@ -112,7 +132,12 @@ var app = angular.module("myApp", ["ngRoute"])
 
   }
 })
-.controller("AppCtrl", function($scope, $http, $location, $rootScope){
+.controller("AppCtrl", function($scope, $http, $location, $rootScope, Notification){
+  if (loginStatus === false) {
+    Notification.success('Successfully logged in. ');
+    loginStatus = true;
+  }
+
   $http({
     "async": true,
     "crossDomain": true,
