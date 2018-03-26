@@ -246,6 +246,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->moustiques = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
 
     /**
@@ -257,8 +258,8 @@ class User implements UserInterface
      */
     public function addMoustique(\AppBundle\Entity\User $moustique)
     {
+        $moustique->addMoustique($this);
         $this->moustiques[] = $moustique;
-
         return $this;
     }
 

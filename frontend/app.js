@@ -269,7 +269,7 @@ app.config(function($routeProvider) {
         "Cache-Control": "no-cache"
       }
     }).then(function(response){
-      //console.log(response);
+      console.log(response);
       $location.path("/app");
 
     })

@@ -95,8 +95,10 @@ class RestController extends Controller
     $moustiqueSource = $em->getRepository('AppBundle:User')->findOneById($this->getUser()->getId());
     $moustiqueCible = $em->getRepository('AppBundle:User')->findOneById($request->get('id'));
     $moustiqueSource->addMoustique($moustiqueCible);
+    //$moustiqueCible->addMoustique($moustiqueSource);
     $temp = $moustiqueSource->getMoustiques();
     $em->persist($moustiqueSource);
+    //$em->persist($moustiqueCible);
     $em->flush();
     return $temp;
 
