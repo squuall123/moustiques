@@ -84,10 +84,10 @@ app.config(function($routeProvider) {
       }
     }).then(function(response){
        if (response.data == "404") {
-        Notification.warning("User not found");
+        Notification.error("User not found");
       } else if (response.data === "401") {
         //console.log("bad password");
-        Notification.warning("Bad password");
+        Notification.error("Bad password");
       }else {
         //console.log(response.data);
         $scope.sending = true;
@@ -295,8 +295,8 @@ app.config(function($routeProvider) {
 .controller("ProfileCtrl", function($scope, $http, $location, $rootScope){
   $scope.profile = $rootScope.profile;
 
-  $scope.updateProfile = function(profile){
-    console.log(profile);
+  $scope.updateProfile = function(form){
+    console.log(form);
     /*
     $http({
       "async": true,
